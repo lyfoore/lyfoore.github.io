@@ -54,8 +54,10 @@ function eulerExplicitDraw(U) {
 
 function gaussSeidelLine(base, U0) {                   // Прогонка по слою БЕЗ проверки на условие с эпсилон
     let U = [...U0];
+    let x = dx*dx/dt/D;
     for (let i = 1; i < N; i++) {                      // base - j-й слой, U - (j+1)-й слой
-        U[i] = (U[i-1] - 2*U[i] + U[i+1]) * D * dt/dx/dx + base[i];
+        // U[i] = (U[i-1] - 2*U[i] + U[i+1]) * D * dt/dx/dx + base[i];
+        U[i] = (U[i-1] + U[i+1])/(x+2) + base[i]/(1+2/x);
     }
     U[0] = U[1];                                       // Граничные
     U[N] = U[N-1];                                     // условия
@@ -105,7 +107,7 @@ function init() {
 
     let Slider = document.getElementById("Slider");
     Slider.min = 0.0001;
-    Slider.max = 0.005;
+    Slider.max = 0.05;
     Slider.step = 0.00001;
     D = Slider.value;
     Slider.oninput = () => {D = Slider.value};
@@ -133,10 +135,10 @@ let c;
 let ctx;
 let lowerPoint, highestPoint;
 let D;                                    // Коэффициент диффузии
-const xmin = 33;
-const xmax = 66;
-const N = 100;
-const M = 100;
+const xmin = 34;
+const xmax = 68;
+const N = 102;
+const M = 102;
 const dt = 1/M;
 const dx = 1/N;
 const epsilon = 10e-5;
