@@ -56,7 +56,6 @@ function gaussSeidelLine(base, U0) {                   // Прогонка по 
     let U = [...U0];
     let x = dx*dx/dt/D;
     for (let i = 1; i < N; i++) {                      // base - j-й слой, U - (j+1)-й слой
-        // U[i] = (U[i-1] - 2*U[i] + U[i+1]) * D * dt/dx/dx + base[i];
         U[i] = (U[i-1] + U[i+1])/(x+2) + base[i]/(1+2/x);
     }
     U[0] = U[1];                                       // Граничные
@@ -141,7 +140,7 @@ const N = 102;
 const M = 102;
 const dt = 1/M;
 const dx = 1/N;
-const epsilon = 10e-5;
+const epsilon = 10e-20;
 
 window.addEventListener("load", () => {alert('Loaded!')}, false); // Test
 // window.addEventListener("load", () => {startEuler()}, false);   // Запуск решения явным методом Эйлера
