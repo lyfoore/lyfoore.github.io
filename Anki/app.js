@@ -29,9 +29,11 @@ hide.addEventListener('click', () => {
 	console.log('hide');
 	if (!(i % 2)) {
 		addingMenu.style.display = 'none';
+		hide.innerHTML = 'PRESS TO SHOW ADD-MENU';
 	}
 	else {
 		addingMenu.style.display = 'block';
+		hide.innerHTML = 'PRESS TO HIDE ADD-MENU';
 	}
 	i += 1;
 });
